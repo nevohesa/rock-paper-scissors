@@ -1,51 +1,71 @@
 <html>
 
-<head>
+<head title="RPS Game by @nevohesa">
 
 <body>
+    <center>
+        <br><br><br><br><br>
+        <h1 style="font-size: 64px; color: crimson; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.438);">RPS Game by
+            @nevohesa</h1>
+        <h2>for The Odin Project</h2>
+    </center>
     <script>
         // let computerSelection = computerPlay(); // global scope var
-        let totalScore = 0;
-        let computerSelection = '';
+        // let totalScore = 0; // for game function
+        let playerScore = 0;
+        let computerScore = 0;
 
-        function computerPlay() { // computer choice
+        const computerPlay = () => { // computer choice
             let compNum = Math.floor(1 + Math.random() * 3);
             if (compNum == 1) {
-                return computerSelection = 'rock';
+                return 'rock';
             } else if (compNum == 2) {
-                return computerSelection = 'paper';
+                return 'paper';
             } else if (compNum == 3) {
-                return computerSelection = 'scissors';
+                return 'scissors';
             }
         }
-
-        const playerSelection = () => prompt('Choose!').toLocaleLowerCase();
-
-
-
-        function playRound(playerSelection, computerSelection) {
+        // const computerSelection = computerPlay();
+        const playerSelection = () => prompt('Please choose - Rock, Paper or Scissors?').toLocaleLowerCase();
 
 
-            if (playerSelection == 'rock' && computerSelection == 'scissors') {
-                console.log('You win! Rock beats Scissors');
-                // game ++
-            } else if (playerSelection == 'rock' && computerSelection == 'paper') {
-                console.log('You Lose! Paper beats rock');
-                // game ++
-            } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
-                console.log('You Win! Scissors beat paper');
-                // game ++
-            } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
-                console.log('You lose! Scissors beat Paper');
+
+        function playRound(playerSelection, computerPlay) {
+
+
+            if (playerSelection == 'rock' && computerPlay == 'scissors' || playerSelection == 'paper' && computerPlay == 'rock' || playerSelection == 'scissors' && computerPlay == 'paper') {
+                alert(`You Win! ${playerSelection} beats ${computerPlay}.`); // Player wins
+                return playerScore++;
+            } else if (playerSelection == 'rock' && computerPlay == 'paper' || playerSelection == 'paper' && computerPlay == 'scissors' || playerSelection == 'scissors' && computerPlay == 'rock') {
+                alert(`You Lose! ${computerPlay} beats ${playerSelection}.`); // Computer wins 
+                return computerScore++;
+            } else if (playerSelection == computerPlay) {
+                alert('Draw.');
             } else {
-                console.log('Draw');
+                alert('ERROR!');
             }
         }
 
+        function game() {
+            playRound(playerSelection(), computerPlay());
+            playRound(playerSelection(), computerPlay());
+            playRound(playerSelection(), computerPlay());
+            playRound(playerSelection(), computerPlay());
+            playRound(playerSelection(), computerPlay());
+            alert('Player Score: ' + playerScore + '\nComputer Score: ' + computerScore);
+            if (playerScore > computerScore) {
+                alert('Player Wins!')
+            } else if (playerScore < computerScore) {
+                alert('Computer Wins!');
+            } else if (playerScore == computerScore) {
+                alert(`It's a Draw!`);
+            }
 
-        // playerSelection(); // prompt check
-        playRound(playerSelection(), 'paper');
-        console.log(playerSelection());
+        }
+
+        // Start Game
+
+        game();
 
     </script>
 
