@@ -4,9 +4,9 @@
 
 <body>
     <script>
-        let computerSelection = ''; // global scope var
-        let playerSelection = '';
+        // let computerSelection = computerPlay(); // global scope var
         let totalScore = 0;
+        let computerSelection = '';
 
         function computerPlay() { // computer choice
             let compNum = Math.floor(1 + Math.random() * 3);
@@ -19,30 +19,33 @@
             }
         }
 
-        function getPlayerSelection() {
-            playerSelection = prompt("Rock, Paper or Scissors?");
-        }
+        const playerSelection = () => prompt('Choose!').toLocaleLowerCase();
+
+
 
         function playRound(playerSelection, computerSelection) {
-            let psLower = playerSelection.toLowerCase();
-            if (psLower == 'rock' && computerSelection == 'scissors') {
+
+
+            if (playerSelection == 'rock' && computerSelection == 'scissors') {
                 console.log('You win! Rock beats Scissors');
                 // game ++
-            } else if (psLower == 'rock' && computerSelection == 'paper') {
+            } else if (playerSelection == 'rock' && computerSelection == 'paper') {
                 console.log('You Lose! Paper beats rock');
                 // game ++
-            } else if (psLower == 'scissors' && computerSelection == 'paper') {
+            } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
                 console.log('You Win! Scissors beat paper');
                 // game ++
-            } else if (psLower == 'paper' && computerSelection == 'scissors') {
+            } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
                 console.log('You lose! Scissors beat Paper');
+            } else {
+                console.log('Draw');
             }
         }
 
 
-
-
-
+        // playerSelection(); // prompt check
+        playRound(playerSelection(), 'paper');
+        console.log(playerSelection());
 
     </script>
 
