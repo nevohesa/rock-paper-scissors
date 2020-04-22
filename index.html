@@ -1,0 +1,52 @@
+<html>
+
+<head>
+
+<body>
+    <script>
+        let computerSelection = ''; // global scope var
+        let playerSelection = '';
+        let totalScore = 0;
+
+        function computerPlay() { // computer choice
+            let compNum = Math.floor(1 + Math.random() * 3);
+            if (compNum == 1) {
+                return computerSelection = 'rock';
+            } else if (compNum == 2) {
+                return computerSelection = 'paper';
+            } else if (compNum == 3) {
+                return computerSelection = 'scissors';
+            }
+        }
+
+        function getPlayerSelection() {
+            playerSelection = prompt("Rock, Paper or Scissors?");
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            let psLower = playerSelection.toLowerCase();
+            if (psLower == 'rock' && computerSelection == 'scissors') {
+                console.log('You win! Rock beats Scissors');
+                // game ++
+            } else if (psLower == 'rock' && computerSelection == 'paper') {
+                console.log('You Lose! Paper beats rock');
+                // game ++
+            } else if (psLower == 'scissors' && computerSelection == 'paper') {
+                console.log('You Win! Scissors beat paper');
+                // game ++
+            } else if (psLower == 'paper' && computerSelection == 'scissors') {
+                console.log('You lose! Scissors beat Paper');
+            }
+        }
+
+
+
+
+
+
+    </script>
+
+</body>
+</head>
+
+</html>
