@@ -14,6 +14,7 @@
         // let totalScore = 0; // for game function
         let playerScore = 0;
         let computerScore = 0;
+        let errorCount = 0;
 
         const computerPlay = () => { // computer choice
             let compNum = Math.floor(1 + Math.random() * 3);
@@ -43,6 +44,7 @@
                 alert('Draw.');
             } else {
                 alert('ERROR!');
+                return errorCount++;
             }
         }
 
@@ -53,6 +55,10 @@
             playRound(playerSelection(), computerPlay());
             playRound(playerSelection(), computerPlay());
             alert('Player Score: ' + playerScore + '\nComputer Score: ' + computerScore);
+            if (errorCount > 0) {
+                alert('Game flawed, You have enterd one invalid value or more.');
+                return;
+            }
             if (playerScore > computerScore) {
                 alert('Player Wins!')
             } else if (playerScore < computerScore) {
