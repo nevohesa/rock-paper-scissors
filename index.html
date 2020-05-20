@@ -3,20 +3,54 @@
 <head title="RPS Game by @nevohesa">
 
 <body>
-    <center>
-        <br><br><br><br><br>
-        <h1 style="font-size: 64px; color: crimson; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.438);">RPS Game by
-            @nevohesa</h1>
-        <h2>for The Odin Project</h2>
-    </center>
+    <div id="container" style="height: 100vh; width: 100vw;">
+        <center>
+            <br><br><br><br><br>
+            <h1 style="font-size: 64px; color: crimson; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.438);">RPS Game by
+                @nevohesa</h1>
+            <h2>for The Odin Project</h2>
+            <button id="rockButton" class="playButtons">rock</button>
+            <button id=" scissorsButton" class="playButtons">scissors</button>
+            <button id="paperButton" class="playButtons">paper</button>
+            <br><br>
+            <p id="winner">---</p>
+            <span>Round Number:</span>
+            <p id="roundNumber">0</p>
+            <br><br>
+            <span>Player Score:</span>
+            <p id="playerScore">0</p>
+            <span>Computer Score:</span>
+            <p id="computerScore">0</p>
+            <span>DRAW Score:</span>
+            <p id="drawScore">0</p>
+
+
+        </center>
+    </div>
     <script>
-        // let computerSelection = computerPlay(); // global scope var
-        // let totalScore = 0; // for game function
+        // DOM variables
+        const container = document.getElementById('container');
+
+        const rock = document.getElementById("rockButton");
+        const scissors = document.getElementById("scisscorsButton");
+        const paper = document.getElementById("paperButton");
+
+        const playerScoreP = document.getElementById("playerScore");
+        const computerScoreP = document.getElementById("computerScore");
+        const drawScoreP = document.getElementById("drawScore");
+
+        const winner = document.getElementById('winner');
+        const playButtons = document.getElementsByClassName("playButtons");
+        const roundNumber = document.getElementById("roundNumber");
+
+        const buttons = document.querySelectorAll('button');
+        const disButtons = document.querySelector('button');
+
         let playerScore = 0;
         let computerScore = 0;
-        let errorCount = 0;
+        let drawScore = 0;
 
-        const computerPlay = () => { // computer choice
+        const computerPlay = () => {
             let compNum = Math.floor(1 + Math.random() * 3);
             if (compNum == 1) {
                 return 'rock';
@@ -25,7 +59,7 @@
             } else if (compNum == 3) {
                 return 'scissors';
             }
-        }
+        };
         // const computerSelection = computerPlay();
         const playerSelection = () => prompt('Please choose - Rock, Paper or Scissors?').toLocaleLowerCase();
 
@@ -35,43 +69,92 @@
 
 
             if (playerSelection == 'rock' && computerPlay == 'scissors' || playerSelection == 'paper' && computerPlay == 'rock' || playerSelection == 'scissors' && computerPlay == 'paper') {
-                alert(`You Win! ${playerSelection} beats ${computerPlay}.`); // Player wins
-                return playerScore++;
+                winner.style.color = 'black';
+                container.style.backgroundColor = 'white';
+
+                playerScore = playerScore + 1;
+                playerScoreP.innerHTML = playerScore; // Player wins
+                winner.textContent = "Player Wins Round";
+
             } else if (playerSelection == 'rock' && computerPlay == 'paper' || playerSelection == 'paper' && computerPlay == 'scissors' || playerSelection == 'scissors' && computerPlay == 'rock') {
-                alert(`You Lose! ${computerPlay} beats ${playerSelection}.`); // Computer wins 
-                return computerScore++;
+                winner.style.color = 'black';
+                container.style.backgroundColor = 'white';
+
+                computerScore = computerScore + 1;
+                computerScoreP.innerHTML = computerScore;
+                winner.textContent = "Computer Wins Round";
+
             } else if (playerSelection == computerPlay) {
-                alert('Draw.');
+                winner.style.color = 'black';
+                container.style.backgroundColor = 'white';
+
+                drawScore = drawScore + 1;
+                drawScoreP.innerHTML = computerScore;
+                winner.textContent = "It's A Draw!";
+
             } else {
                 alert('ERROR!');
                 return errorCount++;
             }
+
+            if (playerScore >= 5) {
+
+                winner.textContent = 'Player Wins GAME!';
+                // winner.style.color = 'green';
+                container.style.backgroundColor = 'green';
+                playerScore = 0;
+                playerScoreP.innerHTML = playerScore;
+                computerScore = 0;
+                computerScoreP.innerHTML = computerScore;
+                drawScore = 0;
+                drawScoreP.innerHTML = drawScore;
+                roundCounter = 0;
+                roundNumber.innerHTML = roundCounter;
+            } else if (computerScore >= 5) {
+
+                winner.textContent = 'Computer Wins GAME!';
+                container.style.backgroundColor = 'red';
+                // winner.style.color = 'red';
+                playerScore = 0;
+                playerScoreP.innerHTML = playerScore;
+                computerScore = 0;
+                computerScoreP.innerHTML = computerScore;
+                drawScore = 0;
+                drawScoreP.innerHTML = drawScore;
+                roundCounter = 0;
+                roundNumber.innerHTML = roundCounter;
+            }
+
+
         }
 
-        function game() {
-            playRound(playerSelection(), computerPlay());
-            playRound(playerSelection(), computerPlay());
-            playRound(playerSelection(), computerPlay());
-            playRound(playerSelection(), computerPlay());
-            playRound(playerSelection(), computerPlay());
-            alert('Player Score: ' + playerScore + '\nComputer Score: ' + computerScore);
-            if (errorCount > 0) {
-                alert('Game flawed, You have enterd one invalid value or more.');
-                return;
-            }
-            if (playerScore > computerScore) {
-                alert('Player Wins!')
-            } else if (playerScore < computerScore) {
-                alert('Computer Wins!');
-            } else if (playerScore == computerScore) {
-                alert(`It's a Draw!`);
-            }
 
-        }
 
-        // Start Game
+        let roundCounter = 0;
 
-        game();
+
+        buttons.forEach((button) => {
+
+            button.addEventListener('click', (e) => {
+                roundCounter = roundCounter + 1;
+                roundNumber.innerHTML = roundCounter;
+                if (button.id = "rockButton") {
+                    playRound('rock', computerPlay());
+
+
+                } else if (button.id = "scissorsButton") {
+                    playRound('scissors', computerPlay());
+
+                } else if (button.id = "paperButton") {
+                    playRound('paper', computerPlay());
+
+
+                }
+            });
+
+
+        });
+
 
     </script>
 
